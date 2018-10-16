@@ -1,0 +1,34 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GameInterface.GameSettings">
+    <ControlTemplate x:Key="ValidationTemplate">
+        <Grid>
+            <AdornedElementPlaceholder x:Name="adornedelem"/>
+            <TextBlock HorizontalAlignment="Right" Width="{Binding ActualHeight, Mode=OneWay, RelativeSource={RelativeSource Self}}"
+                       Margin="2" Background="Red" Foreground="White" TextAlignment="Center" Panel.ZIndex="2" Text="!" DataContext="{Binding ElementName=adornedelem}">
+                <TextBlock.ToolTip>
+                    <ItemsControl ItemsSource="{Binding AdornedElement.(Validation.Errors)}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Foreground="Red" Text="{Binding ErrorContent}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                </TextBlock.ToolTip>
+            </TextBlock>
+        </Grid>
+    </ControlTemplate>
+    
+    <Style TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="true">
+                <Setter Property="Background" Value="#FFFFDADA"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
